@@ -3,20 +3,22 @@ import json
 import facebook
 
 if __name__ == "__main__":
-    token = 'EAAEze9xMBS0BAKPw278VczENUG9ZB7zYRnnOZCHcZB1JLb8tkUFcWkinZBF6wn5Tzwb79WZBK1a9ZCbhWsIJsGPw3qJ0zO4gWSvZCyZBJrvHAqSmZCcOTaZA2yLiSrXLmPZACjuxHGf8KXaaZAIBn2E8nnBMZC0MKi1qxrd3ZCkZCBetB5lPzk3SJoHOCZAU0eqJ7DB92lQl4jl7PvtTggZDZD'
+    token = 'EAAEze9xMBS0BAMCQy0xL4gwXsmnZCGfReBpvTQdvORR1EG0MpKo28c427jHY2OYWoWX4ItZBZAhKsnVNGx85fNikQgjHV3rAelYSaRHctXfmZAR1ni1ZCAxEbSIpHGSyBZCamvZCGiZCKBNaWMnFu4IOEZCj6E4r9wVQU3YXj8lZAUjhb4gLVMkxmEdyxcbMD9RwQdQklrBed2ugZDZD'
 
     graph = facebook.GraphAPI(token)
     fields = ['link', 'created_time']
     fields = ','.join(fields)
     print(fields)
-    page = graph.get_object('wittyfeedIndia/posts', fields=fields)
+    page = graph.get_object('wittyfeed/posts', fields=fields)
     a = []
     for posts in page['data']:
-        a.append((posts['created_time'], posts['id'], posts['link']))
+        a.append([posts['created_time'], posts['link']])
 
-    a.sort()
-
-    print(json.dumps(page['data'], indent=4))
+    a.sort(reverse=True)
+    #print(json.dumps(page['data'], indent=4))
     print(a)
-    print(a[:5])
+    b = list(map(lambda x: x[2], a))
+    print(b)
+    #print(a[:5])
+
 

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+    body, html {
+        height: 100%;
+        line-height: 1.8;
+    }
+    /* Full height image header */
+    .bgimg-1 {
+        background-position: center;
+        background-size: cover;
+        background-image: url("/w3images/mac.jpg");
+        min-height: 100%;
+    }
+    .w3-bar .w3-button {
+        padding: 16px;
+    }
+    </style>
+    <title>Sign Up</title>
+  </head>
+  <body>
+      <div class="w3-display-left">
+        <div id="fb-root"></div>
+        <script>
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=338082046674221';
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+        <script>
+          // This is called with the results from from FB.getLoginStatus().
+          function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+              // Logged into your app and Facebook.
+              testAPI();
+            } else {
+              // The person is not logged into your app or we are unable to tell.
+              document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+            }
+          }
+
+          // This function is called when someone finishes with the Login
+          // Button.  See the onlogin handler attached to it in the sample
+          // code below.
+          function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+              statusChangeCallback(response);
+            });
+          }
+
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId: '338082046674221',
+              cookie: true, // enable cookies to allow the server to access
+              // the session
+              xfbml: true, // parse social plugins on this page
+              version: 'v2.8' // use graph api version 2.8
+            });
+
+            // Now that we've initialized the JavaScript SDK, we call
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function(response) {
+              statusChangeCallback(response);
+            });
+
+          };
+
+          // Load the SDK asynchronously
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+
+          // Here we run a very simple test of the Graph API after login is
+          // successful.  See statusChangeCallback() for when this call is made.
+          function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+              console.log('Successful login for: ' + response.name);
+              document.getElementById('status').innerHTML =
+                'Thanks for logging in, ' + response.name + '!';
+            });
+          }
+        </script>
+
+        <!--
+          Below we include the Login Button social plugin. This button uses
+          the JavaScript SDK to present a graphical Login button that triggers
+          the FB.login() function when clicked.
+          -->
+
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        </fb:login-button>
+
+        <div id="status">
+        </div>
+      </div>
+     <div class="w3-display-middle">
+       <form action="/saving_url/" method="post"> {% csrf_token %}
+        <p><input class="w3-input w3-border" type="text" placeholder="Url"
+          required id="url" maxlength="100" name="url"></p>
+        <div class="w3-center">
+          <button class="w3-center w3-button w3-red" type="button" onclick="clear_urls()">
+            Clear Urls
+          </button>
+          <button class="w3-csenter w3-button w3-black" type="submit">
+            <i class="fa fa-paper-plane"></i>Merge
+          </button>
+          <button class="w3-center w3-button w3-green" type="button" onclick="live_stream()">
+            Stream
+          </button>
+        </div>
+        </form>
+    </div>
+
+<script type="text/javascript">
+    {% if Merge == "Url Merged" %}
+      document.getElementById('url').placeholder = 'Url Merged Enter another';
+      window.alert("Url Merged");
+    {% endif %}
+
+  function clear_urls(){
+    window.location.replace("http://127.0.0.1:8000/clear/");
+  }
+  {% if cleared == "done" %}
+    document.getElementById('url').placeholder = 'Urls empty';
+    window.alert("Url cleared");
+  {% endif %}
+
+  function live_stream(){
+    window.location.replace("http://127.0.0.1:8000/stream/")
+  }
+
+  function w3_close() {
+    mySidebar.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
