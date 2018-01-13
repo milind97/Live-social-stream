@@ -1,0 +1,5 @@
+<form action="/saving_url/" method="post">
+  {% csrf_token %}
+  {{url}}
+  <input type="submit"value="Merge">
+</form>
