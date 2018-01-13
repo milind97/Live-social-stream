@@ -27,9 +27,9 @@
   </head>
   <body>
      <div class="w3-display-middle">
-       <form action="/saving_url/" method="get">
+       <form action="/saving_url/" method="post"> {% csrf_token %}
         <p><input class="w3-input w3-border" type="text" placeholder="Url"
-          required id="url" maxlength="100" required></p>
+          required id="url" maxlength="100" name="url" required></p>
         <div class="w3-center">
           <button class="w3-center w3-button w3-red" onclick="clear()">
             Clear Urls
