@@ -12,8 +12,10 @@ def start_page(request):
     return render(request, 'stream/start_page.html')
 
 
-def demo_url(request):
-     return render(request, 'stream/demo.html')
+def clear_urls(request):
+    Url.objects.all().delete()
+    context = {"cleared": "done", "Merge": "Not Merged"}
+    return render(request, 'stream/start_page.html', context)
 
 
 def saving_url(request):
@@ -26,4 +28,9 @@ def saving_url(request):
         #return HttpResponse('/thanks/')
     #else:
      #   url = UrlForm()
-    return render(request, 'stream/name.html')
+    context = {"Merge": "Url Merged"}
+    return render(request, 'stream/start_page.html', context)
+
+
+def stream(request):
+    for x in Url.objects.all():

@@ -29,52 +29,43 @@
      <div class="w3-display-middle">
        <form action="/saving_url/" method="post"> {% csrf_token %}
         <p><input class="w3-input w3-border" type="text" placeholder="Url"
-          required id="url" maxlength="100" name="url" required></p>
+          required id="url" maxlength="100" name="url"></p>
         <div class="w3-center">
-          <button class="w3-center w3-button w3-red" onclick="clear()">
+          <button class="w3-center w3-button w3-red" type="button" onclick="clear_urls()">
             Clear Urls
           </button>
-          <button class="w3-csenter w3-button w3-black" type="submit" onclick="merge()">
+          <button class="w3-csenter w3-button w3-black" type="submit">
             <i class="fa fa-paper-plane"></i>Merge
           </button>
-          <button class="w3-center w3-button w3-green" onclick="stream()">
+          <button class="w3-center w3-button w3-green" type="button" onclick="live_stream()">
             Stream
           </button>
         </div>
         </form>
     </div>
 
+<script type="text/javascript">
+    {% if Merge == "Url Merged" %}
+      document.getElementById('url').placeholder = 'Url Merged Enter another';
+      window.alert("Url Merged");
+    {% endif %}
 
-
-  </body>
-</html>
-<script>
-  function merge() {
-    a = document.getElementById('url').value();
-    alert(a);
+  function clear_urls(){
+    window.location.replace("http://127.0.0.1:8000/clear/");
   }
-  // Modal Image Gallery
-  function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-  }
+  {% if cleared == "done" %}
+    document.getElementById('url').placeholder = 'Urls empty';
+    window.alert("Url cleared");
+  {% endif %}
 
-
-  // Toggle between showing and hiding the sidebar when clicking the menu icon
-  var mySidebar = document.getElementById("mySidebar");
-
-  function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-    } else {
-        mySidebar.style.display = 'block';
-    }
+  function live_stream(){
+    window.location.replace("http://127.0.0.1:8000/stream/")
   }
 
-  // Close the sidebar with the close button
   function w3_close() {
     mySidebar.style.display = "none";
   }
 </script>
+
+</body>
+</html>
