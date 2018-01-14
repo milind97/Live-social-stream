@@ -37,7 +37,7 @@ def stream(request):
 
     a = []
     for url in Url.objects.all():
-        token = 'EAAEze9xMBS0BAHKnJOschj0gwYVdqmz1pq4gCL4ZBkVUTXz9fjmKxzDCsTEZAB3zETMpVj5zr4SEjrTjH0PfggbIZASreFRC841mZBL3uNkYUvwkU1BaBIn3yayNjWw9Q5CKmvAZCZBIMpUxZCDbB2iYKkUyVdllc9qTTP0P9YaVCI55wnkohNJ0o4qnJ4dyxWuImNJg3Q2zQZDZD'
+        token = 'EAAEze9xMBS0BAFwhmYrdWFmjP4tZCX9di843oTZCHuEKt3o8zSy9Mk88dcKfhH1AQF9UP5v5Wz1ZAQYov6Kd8SuWsgZCWyXVJR5yBmXBocpG7vtD8WakkWFlxRKXzRQ6mIK2hyj8lO7lIL5JdXe7GJ1ZBhdfnpA3T51A6RIl454UPtIbbz6WfeV7xRbNCFLkzeMsgTNL6sgZDZD'
 
         graph = facebook.GraphAPI(token)
         fields = ['link', 'created_time']
