@@ -103,21 +103,18 @@
   </div>
 
   <script type="text/javascript">
-    { %
-      if Merge == "Url Merged" %
-    }
+    {% if Merge == "Url Merged" %}
     document.getElementById('url').placeholder = 'Url Merged Enter another';
-    window.alert("Url Merged"); { % endif %
-    }
+    window.alert("Url Merged");
+    {% endif %}
 
     function clear_urls() {
       window.location.replace("http://127.0.0.1:8000/clear/");
-    } { %
-      if cleared == "done" %
     }
+    {% if cleared == "done" %}
     document.getElementById('url').placeholder = 'Urls empty';
-    window.alert("Url cleared"); { % endif %
-    }
+    window.alert("Url cleared");
+    {% endif %}
 
     function live_stream() {
       window.location.replace("http://127.0.0.1:8000/stream/")

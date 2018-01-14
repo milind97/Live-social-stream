@@ -37,17 +37,17 @@ def stream(request):
 
     a = []
     for url in Url.objects.all():
-        token = 'EAAEze9xMBS0BAMCQy0xL4gwXsmnZCGfReBpvTQdvORR1EG0MpKo28c427jHY2OYWoWX4ItZBZAhKsnVNGx85fNikQgjHV3rAelYSaRHctXfmZAR1ni1ZCAxEbSIpHGSyBZCamvZCGiZCKBNaWMnFu4IOEZCj6E4r9wVQU3YXj8lZAUjhb4gLVMkxmEdyxcbMD9RwQdQklrBed2ugZDZD'
+        token = 'EAAEze9xMBS0BAHKnJOschj0gwYVdqmz1pq4gCL4ZBkVUTXz9fjmKxzDCsTEZAB3zETMpVj5zr4SEjrTjH0PfggbIZASreFRC841mZBL3uNkYUvwkU1BaBIn3yayNjWw9Q5CKmvAZCZBIMpUxZCDbB2iYKkUyVdllc9qTTP0P9YaVCI55wnkohNJ0o4qnJ4dyxWuImNJg3Q2zQZDZD'
 
         graph = facebook.GraphAPI(token)
         fields = ['link', 'created_time']
         fields = ','.join(fields)
         print(fields)
-        url = url.split('/')[-2] + '/posts'
+        url = str(url).split('/')[-2] + '/posts'
         page = graph.get_object(url, fields=fields)
-        for posts in page['data']:
+        for posts in page['data'][:5]:
             a.append([posts['created_time'], posts['link']])
     a.sort(reverse=True)
-    b = list(map(lambda x: x[2], a))
+    b = list(map(lambda x: x[1], a))
     context = {'l_post': b}
     return render(request, 'stream/stream.html', context)
